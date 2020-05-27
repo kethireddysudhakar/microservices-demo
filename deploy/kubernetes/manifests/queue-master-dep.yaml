@@ -1,17 +1,20 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: queue-master
   labels:
-    name: queue-master
+    app: queue-master
   namespace: sock-shop
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: queue-master
   template:
     metadata:
       labels:
-        name: queue-master
+        app: queue-master
     spec:
       containers:
       - name: queue-master
@@ -29,18 +32,6 @@ spec:
             cpu: 300m
             memory: 500Mi
         ports:
-        - containerPort: 80
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 80
-          initialDelaySeconds: 300
-          periodSeconds: 3
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 80
-          initialDelaySeconds: 180
-          periodSeconds: 3
+        - containerPort: 80        
       nodeSelector:
         beta.kubernetes.io/os: linux

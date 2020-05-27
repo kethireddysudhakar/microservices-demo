@@ -1,17 +1,20 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: payment
   labels:
-    name: payment
+    app: payment
   namespace: sock-shop
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: payment
   template:
     metadata:
       labels:
-        name: payment
+        app: payment
     spec:
       containers:
       - name: payment

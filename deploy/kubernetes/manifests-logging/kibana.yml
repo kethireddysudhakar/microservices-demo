@@ -1,5 +1,5 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kibana
@@ -8,13 +8,16 @@ metadata:
   namespace: kube-system
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
   template:
     metadata:
       labels:
-        name: kibana
+        app: kibana
     spec:
       containers:
-       - image: kibana
+       - image: kibana:7.6.2
          name: kibana
          ports:
           - name: kibana
@@ -25,13 +28,13 @@ kind: Service
 metadata:
   name: kibana
   labels:
-    name: kibana
+    app: kibana
   namespace: kube-system
 spec:
   type: NodePort
   ports:
   - port: 5601
     targetPort: 5601
-    nodePort: 31601
+    nodePort: 31605
   selector:
-    name: kibana
+    app: kibana
