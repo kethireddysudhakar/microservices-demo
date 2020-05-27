@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: front-end
-        image: sudhakarkethireddy/front-end:1.1
+        image: sudhakarkethireddy/front-end:1.2
         resources:
           limits:
             cpu: 300m
